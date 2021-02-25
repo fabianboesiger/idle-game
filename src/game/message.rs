@@ -45,8 +45,8 @@ impl Client {
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct ScoreboardEntry {
-    pub username: Option<String>,
-    pub score: Option<i32>,
+    pub username: String,
+    pub score: i32,
 }
 
 #[derive(Clone, Serialize, Deserialize)]
