@@ -215,11 +215,13 @@ pub async fn update_session(
     reply: impl Reply,
     mut session: Session,
 ) -> Result<impl warp::Reply, std::convert::Infallible> {
-    let reply = warp::reply::with_header(
-        reply,
+    let mut response = reply.into_response();
+    let mut headers = response.headers_mut();
+
+    headers.insert(
         http::header::SET_COOKIE,
         format!(
-            "session-id={}; Path=/; Max-Age={}; HttpOnly",
+            "session-id={}; Path=/; Max-Age={}; HttpOnly; SameSite=Strict",
             session.cookie.session_id,
             session
                 .cookie
@@ -231,11 +233,10 @@ pub async fn update_session(
         ),
     );
 
-    let reply = warp::reply::with_header(
-        reply,
+    headers.insert(
         http::header::SET_COOKIE,
         format!(
-            "flashes={}; Path=/; Max-Age={}; HttpOnly",
+            "flashes={}; Path=/; Max-Age={}; HttpOnly; SameSite=Strict",
             encode(&session.flashes.join("|")),
             if session.flashes.is_empty() { 0 } else { 60 }
         ),
@@ -243,5 +244,5 @@ pub async fn update_session(
 
     session.flashes.clear();
 
-    Ok(reply)
+    Ok(response)
 }

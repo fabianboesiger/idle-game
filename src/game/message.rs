@@ -2,6 +2,7 @@ use once_cell::sync::OnceCell;
 use tokio::sync::{mpsc, broadcast};
 use serde::{Deserialize, Serialize};
 use crate::model::user::UserId;
+use chrono::{DateTime, Utc};
 
 pub static CLIENT_CREATOR: OnceCell<ClientCreator> = OnceCell::new();
 
@@ -49,14 +50,31 @@ pub struct ScoreboardEntry {
     pub score: i32,
 }
 
+/*
+#[derive(Clone, Serialize, Deserialize)]
+pub struct Land {
+    pub land: i32,
+    pub infrastructure_type: Option<String>,
+    pub progress: Option<DateTime<Utc>>,
+}
+
+pub enum LandState {
+
+}
+*/
+
 #[derive(Clone, Serialize, Deserialize)]
 pub enum ServerMessage {
     UpdateScore(i32),
     UpdateScoreboard(Vec<ScoreboardEntry>),
+    UpdateCommodity(i32),
+    UpdateLand(Vec<Land>),
 }
 
 #[derive(Clone, Serialize, Deserialize)]
 pub enum ClientMessage {
     Increment,
     Init,
+    //BuyLand,
+    //BuyInfrastructure(i32, Option<String>),
 }

@@ -270,6 +270,7 @@ checksum = "80094f509cf8b5ae86a4966a39b3ff66cd7e2a3e594accec3743ff3fabeab5b2"
 dependencies = [
  "num-integer",
  "num-traits",
+ "serde",
  "time",
 ]
 
@@ -1875,7 +1876,8 @@ dependencies = [
 [[package]]
 name = "warp"
 version = "0.3.0"
-source = "git+https://github.com/fabianboesiger/warp.git#2afc35f9972538c4f844dffab1f62dd709f63081"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3dafd0aac2818a94a34df0df1100a7356c493d8ede4393875fd0b5c51bb6bc80"
 dependencies = [
  "bytes 1.0.1",
  "futures",

@@ -4,7 +4,6 @@ pub mod message;
 use crate::{database::get_pool, Error};
 use event::EventQueue;
 use message::*;
-use log::*;
 
 pub async fn run((tx, mut rx): ServerEndpont) {
     let queue = EventQueue::new();
